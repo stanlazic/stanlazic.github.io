@@ -1,1 +1,1 @@
-# stanlazic.github.io
+[Homepage](http://stanlazic.github.io/ "Link to homepage")
