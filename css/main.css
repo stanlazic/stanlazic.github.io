@@ -1,4 +1,8 @@
+@import url(http://fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic);
+
 body {
+    font-family: 'Merriweather', Georgia, Times;
+    background-color: #FFFAFA;
     margin: 60px auto;
     width: 70%;
 }
@@ -12,24 +16,27 @@ nav ul li, footer ul li {
     display: inline;
     margin-right: 20px;
 }
+ol li, ul li {
+    margin-bottom: 20px;
+}
 a {
     text-decoration: none;
-    color: #999;
+    color: #36C;
 }
 a:hover {
     text-decoration: underline;
 }
 h1 {
-    font-size: 3em;
-    font-family:'Helvetica', 'Arial', 'Sans-Serif';
+    font-size: 2.1em;
+    font-family: 'Merriweather', Georgia, Times;
 }
 p {
-    font-size: 1.5em;
+    font-size: 1.25em;
     line-height: 1.4em;
     color: #333;
 }
 footer {
-    border-top: 1px solid #d5d5d5;
+    border-top: 2px solid #d5d5d5;
     font-size: .8em;
 }
 
