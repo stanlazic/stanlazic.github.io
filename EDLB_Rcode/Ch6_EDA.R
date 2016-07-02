@@ -283,7 +283,7 @@ x1 <- rnorm(100, 10)
 x2 <- rnorm(100, 10)
 x3 <- rnorm(100, 10)
 
-# x1 and x2 are correlated
+# x1 and x2 are uncorrelated
 cor.test(x1, x2)
 
 ## ----sup_cor, out.width = "0.98\\textwidth", fig.height = 4, fig.width = 7, fig.cap='Spurious correlation. Two uncorrelated variables can become correlated when \"corrected\" for a common third variable.'----
