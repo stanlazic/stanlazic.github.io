@@ -1,32 +1,3 @@
-## ----setup, include=FALSE, cache=FALSE-----------------------------------
-require(knitr)
-
-opts_chunk$set(
-    fig.path = "knitr_figs/",
-    fig.height = 3,
-    fig.width = 4,
-    out.width = "0.98\\textwidth", 
-    fig.keep = "high",
-    fig.show = "hold",
-    fig.align = "center",
-    fig.pos = "htb",
-    warning = FALSE,
-    error = FALSE,
-    prompt = TRUE,
-    comment = NA,
-    highlight = FALSE,
-    background = "#F7F7F7",
-    size = "small",
-    strip.white=FALSE,
-    cache = TRUE,
-    cache.path = "cache_optimal/")
-
-opts_knit$set(progress = TRUE,
-              verbose = TRUE,
-              unnamed.chunk.label = "CHUNK",
-              width = 70)
-options(show.signif.stars=FALSE)
-
 ## ----echo=FALSE----------------------------------------------------------
 rm(list=ls())
 
@@ -34,7 +5,7 @@ rm(list=ls())
 library(labstats)
 head(CV)
 
-## ----reliability_2vars,  out.width = "0.98\\textwidth", fig.height = 3.25, fig.width = 9, fig.cap='Two outcome variables, A and B, are measured on five samples and are highly correlated. Three measurements are taken on each sample (subsamples) to estimate the measurement error and are plotted by sample number. Which variable would make a better primary outcome?'----
+## ------------------------------------------------------------------------
 # load required packages
 library(lattice)
 
@@ -51,7 +22,7 @@ print(p1, split=c(1,1,3,1), more=TRUE)
 print(p2, split=c(2,1,3,1), more=TRUE)
 print(p3, split=c(3,1,3,1))
 
-## ----reliability_2vars_red,  out.width = "0.6\\textwidth", fig.height = 4.5, fig.width = 4.5, fig.cap='Coefficient of variation for three measurements on five samples for two outcome variables. Outcome B is preferred because the measurements are more reliable.'----
+## ------------------------------------------------------------------------
 library(plyr)
 # calculate the CV for both variables
 cv.red <- ddply(CV, .(Sample), summarize,
@@ -72,7 +43,7 @@ segments(rep(1,5), cv.red[,2], rep(2,5), cv.red[,3])
 ## ------------------------------------------------------------------------
 head(goldstandard)
 
-## ----reliability_goldstandard, echo=FALSE,  out.width = "0.98\\textwidth", fig.height = 6.5, fig.width = 5.75, fig.cap='Comparing a new variable with a gold standard. r = Pearson correlation; CCC = Lin\'s concordance correlation coefficient'----
+## ------------------------------------------------------------------------
 par(mfrow=c(2,2),
     las=1,
     mar=c(4,4,4,1))
@@ -130,7 +101,7 @@ with(goldstandard, lin.cor(goldstandard, scale))
 trellis.par.set(axis.components=list(right=list(tck=0),
                                      top=list(tck=0)))
 
-## ----reliability_goldstandard_tmd, out.width = "0.98\\textwidth", fig.height = 3.5, fig.width = 6, fig.cap='Tukey mean-difference plot for comparing measurements with a gold-standard.'----
+## ------------------------------------------------------------------------
 p1 <- tmd(xyplot(location ~ goldstandard, data=goldstandard,
                  main="Noise + location shift"),
           ylim=c(-1,5), col="black")
@@ -144,7 +115,7 @@ print(p2, split=c(2,1,2,1))
 ## ------------------------------------------------------------------------
 head(assay.window)
 
-## ----assay_window, out.width = "0.98\\textwidth", fig.height = 4.5, fig.width = 7, fig.cap='Assay window. Outcome A has a smaller difference between means, but less variability within the two groups, compared with Outcome B. Which outcome has a better assay window?'----
+## ------------------------------------------------------------------------
 library(beeswarm)
 par(mfrow=c(1,2),
     mar=c(4,4,2,1),
@@ -221,7 +192,7 @@ trellis.par.set(list(superpose.line=list(lty=1:5, col="black"),
                      axis.components=list(right=list(tck=0),
                          top=list(tck=0))))
 
-## ----power_complex, out.width = "0.98\\textwidth", fig.height = 4, fig.width = 7, fig.cap='Power as a function of the sample size, effect size, and within-group variability (SD).'----
+## ------------------------------------------------------------------------
 xyplot(power ~ N|factor(diff), data=pow, groups=SD, type="l",
        ylab="Power", xlab="Sample size per group",
        ylim=c(0,1), between=list(x=1),
@@ -248,7 +219,7 @@ res <- apply(vals, 1, function (x){
                  power.t.test(delta = x[1], sd = x[2],
                               power=0.8)$n })
 
-## ----bayes_power, out.width = "0.98\\textwidth", fig.height = 3.25, fig.width = 7, fig.cap='Simulation-based sample size calculations. The uncertainty in the effect size and variability is represented with a normal distribution. The number of samples required also has a distribution from which we can calculate useful summaries. Black triangles are the values from the standard sample size calculation.'----
+## ------------------------------------------------------------------------
 par(mfrow=c(1,3),
     mar=c(4.5,1.5,3,0.5))
 hist(delta, breaks=20, col="grey", border="white",
@@ -287,7 +258,7 @@ z1 <- rep(c(1,8,1,8), each=5) # time variable         # H
 ## dotPlot(x1, pch=16, xlab="Dose", base=FALSE, axes = FALSE)
 ## axis(1, at=c(0,8,16,24))
 
-## ----design_points_samp_alloc, echo=FALSE, out.width = "0.99\\textwidth", fig.height = 6, fig.width = 6, fig.cap='Nine designs with twenty samples (black dots). All designs have the same design space for Dose (0--24 mg/kg) but different design points and number of samples per design point. Design (I) has Time as an additional variable.'----
+## ----echo=FALSE----------------------------------------------------------
 library(BHH2)
 par(mfrow=c(3,3),
     mar=c(4.5,2,0.1,1),
@@ -342,7 +313,7 @@ n2 <- 10:2
 # confirm that total is 20
 n1 + n2
 
-## ----var_of_estimator, out.width = "0.99\\textwidth", fig.height = 4, fig.width = 6, fig.cap='Efficiency of estimating a mean difference. The $y$-axis is the variance of the estimate and lower values are better. An 18:2 sample allocation requires 1.7 times more samples compared with a 10:10 allocation.'----
+## ------------------------------------------------------------------------
 # variance of the estimator
 v <- sqrt((1/n1 + 1/n2))
 
@@ -398,7 +369,7 @@ var(x1)/var(x4)
 
 var(x5)/var(x4)
 
-## ----range_of_X, echo=FALSE, out.width = "0.98\\textwidth", fig.height = 4, fig.width = 7, fig.cap='How the range of a predictor variable (age) affects the efficiency. Both graphs have the same number of samples and the same underlying relationship between the outcome and age (slope = 1). With a narrow age range, three times as many samples are required to have the same power as with a wide age range.'----
+## ----echo=FALSE----------------------------------------------------------
 set.seed(1)
 x1 <- runif(100, 20, 80)
 y1 <- rnorm(100, 10 + x1, 10)
@@ -417,7 +388,7 @@ plot(y2 ~ x2, xlab="Age (y)", ylab="Outcome",
      xlim=c(15, 85), ylim=c(15, 110),
      main="N = 100; Narrow age range")
 
-## ----dichot, echo=FALSE, out.width = "0.98\\textwidth", fig.height = 5.5, fig.width = 7, fig.cap='Binning a continuous variable. Two studies (panels A--C and D--F) perform a median split (vertical dashed bar) of the biomarker to define two groups. The groups are tested if they differ on disease severity. The groups are not comparable between studies because the cutoff for the median is different. The relationship between the biomarker and disease severity is the same in both studies, they only differ in the distribution of the biomarker variable.'----
+## ----echo=FALSE----------------------------------------------------------
 library(sciplot)
 set.seed(1)
 x <- rgamma(50, shape=0.5, rate=0.25)
@@ -516,7 +487,7 @@ sum(diag(cov.des2)) # unbalanced
 # calculate RE
 0.2 / 0.238095
 
-## ----autocor, echo=FALSE, out.width = "0.65\\textwidth", fig.height = 5, fig.width = 5, fig.cap='Correlation between time points of different lags. As the distance between time points increases the correlation gets weaker.'----
+## ----echo=FALSE----------------------------------------------------------
 kh.wide <- unstack(KH2004[KH2004$cond=="Placebo", ], values~time)
 
 cor.wide <- cor(kh.wide[, -1])
@@ -539,7 +510,7 @@ for (i in 1:13){
 
 abline(h=0.9, lty=2)
 
-## ----pk_example, out.width = "0.6\\textwidth", fig.height = 5, fig.width = 5, fig.cap='Concentration of a compound in the blood over time.'----
+## ------------------------------------------------------------------------
 # make sequence of observations
 t <- seq(0, 24, 0.1)
 
@@ -592,7 +563,7 @@ best.des <- optFederov(~ 0 + k1 + k2, data=data.frame(res),
 ## ------------------------------------------------------------------------
 best.des$design
 
-## ----pk_curves, out.width = "0.6\\textwidth", fig.height = 5, fig.width = 5, fig.cap='The PK curve shows the concentration of the drug in the blood over 24 hours. With an initial and final time point selected at 0 and 24 hours, two more time points are required. The optimal values (circles) occur at 1 and 5 hours. Spacing the observations out equally puts them at 8 and 16 hours, but the early changes are missed.'----
+## ------------------------------------------------------------------------
 # make equally spaced points and the optimal points
 eq.space <- seq(0,24, length.out=4)
 best <- best.des$design$t.vals
@@ -612,7 +583,7 @@ legend("topright", pch=c(1,4), cex=1.2,
 ## ------------------------------------------------------------------------
 block.covars
 
-## ----block_covars, echo=FALSE, out.width = "0.98\\textwidth", fig.height = 6, fig.width = 8, fig.cap='Blocking versus ANCOVA. The top row of graphs are from a randomised block design where rats are paired according to baseline body weight and one member of each pair is randomised to each treatment group. The bottom row is a completely randomised design and the effect of baseline body weight on the outcome is removed statistically. The range of the $y$-axes is 60 units in all graphs, so the range bars can be directly compared.'----
+## ----echo=FALSE----------------------------------------------------------
 adj.y <- resid(lm(block.covars$y.CRD~block.covars$weight))
 
 par(las=1,

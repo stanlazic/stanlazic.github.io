@@ -1,32 +1,3 @@
-## ----setup, include=FALSE, cache=FALSE-----------------------------------
-require(knitr)
-
-opts_chunk$set(
-    fig.path = "knitr_figs/",
-    fig.height = 3,
-    fig.width = 4,
-    out.width = "0.98\\textwidth", 
-    fig.keep = "high",
-    fig.show = "hold",
-    fig.align = "center",
-    fig.pos = "htb",
-    warning = FALSE,
-    error = FALSE,
-    prompt = TRUE,
-    comment = NA,
-    highlight = FALSE,
-    background = "#F7F7F7",
-    size = "small",
-    strip.white=FALSE,
-    cache = TRUE,
-    cache.path = "cache_R_appendix/")
-
-opts_knit$set(progress = TRUE,
-              verbose = TRUE,
-              unnamed.chunk.label = "CHUNK",
-              width = 70)
-options(show.signif.stars=FALSE)
-
 ## ----echo=FALSE----------------------------------------------------------
 rm(list=ls())
 
@@ -378,10 +349,10 @@ with(festing, tapply(value, list(strain, treatment), sd))
 ## ----eval=FALSE----------------------------------------------------------
 ## y.var ~ x.var
 
-## ----tradplot,  out.width = "0.55\\textwidth", fig.height = 5, fig.width = 5, fig.cap='A basic traditional plot.'----
+## ------------------------------------------------------------------------
 plot(value ~ treatment, data=festing)
 
-## ----pars, out.width = "0.98\\textwidth", fig.height = 4, fig.width = 8, fig.cap='An improved graph by changing the global graphical parameters with \\texttt{par()} and the local plotting options (A). The same plot generated in a different way (B).'----
+## ------------------------------------------------------------------------
 par(mfrow=c(1,2), # plot two graphs in a 1 by 2 grid
     mar=c(4,4,2.5,1), # decrease the margin size
     las=1)  # default is las=0
@@ -421,13 +392,13 @@ mtext("B", side=3, line=1, font=2, cex=1.5, adj=0)
 ## contour()
 ## coplot()
 
-## ----grid1, out.width = "0.98\\textwidth", fig.height = 4, fig.width = 7, fig.cap='A basic plot using the \\texttt{xyplot()} function from the \\texttt{lattice} package.'----
+## ------------------------------------------------------------------------
 library(lattice)
 
 xyplot(value ~ treatment|batch, data=festing,
        groups=strain)
 
-## ----grid2, out.width = "0.98\\textwidth", fig.height = 4, fig.width = 7, fig.cap='An improved graph by changing the global graphical parameters with \\texttt{trellis.par.set()} and the local plotting options.'----
+## ------------------------------------------------------------------------
 trellis.par.set(superpose.symbol=list(col="black", pch=1:4),
                 superpose.line=list(col="black", lty=1:4),
                 axis.components=list(right=list(tck=0),
@@ -470,7 +441,7 @@ xyplot(value ~ treatment|factor(batch), data=festing,
 set.seed(1)
 rnorm(n=5, mean=10, sd=2)
 
-## ----pqrd, echo=FALSE, out.width = "0.98\\textwidth", fig.height = 7, fig.width = 7, fig.cap='Functions associated with distributions in R. All four normal distributions have a mean of ten and an SD of two.  \\texttt{rnorm()} generates random data (A) and the other functions answer different but related questions. \\texttt{pnorm()} is the distribution function (B), \\texttt{dnorm()} is the density function (C), and \\texttt{qnorm()} is the quantile function (D).'----
+## ----echo=FALSE----------------------------------------------------------
 set.seed(1)
 norm.data <- rnorm(n=100, mean=10, sd=2)
 norm.dist <- pnorm(12, mean=10, sd=2)
@@ -539,7 +510,7 @@ mod1 <- aov(value ~ treatment, data=festing)
 
 summary(mod1)
 
-## ----diagPlotFesting,  out.width = "0.98\\textwidth", fig.height = 6, fig.width = 6, fig.cap='Diagnostic plots. These graphs help with assessing the normality and homogeneity of variance assumptions by looking at the model residuals.'----
+## ------------------------------------------------------------------------
 par(mfrow=c(2,2))
 plot(mod1)
 
@@ -565,7 +536,7 @@ summary(mod4)
 # hierarchical sum of squares
 car::Anova(mod4)
 
-## ----predplot, out.width = "0.98\\textwidth", fig.height = 4, fig.width = 7, fig.cap='Prediction plot. The actual data values ($x$-axis) are plotted against the values predicted from the model ($y$-axis) for two different models. Note how the predictions are better (closer to the diagonal line) when batch is included as a variable in the model (right graph).'----
+## ------------------------------------------------------------------------
 # calculated predicted values for mod3 and mod4
 pred.mod3 <- predict(mod3)     # same as fitted(mod3)
 pred.mod4 <- predict(mod4)     # same as fitted(mod4)

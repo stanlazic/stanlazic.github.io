@@ -1,39 +1,10 @@
-## ----setup, include=FALSE, cache=FALSE-----------------------------------
-require(knitr)
-
-opts_chunk$set(
-    fig.path = "knitr_figs/",
-    fig.height = 3,
-    fig.width = 4,
-    out.width = "0.98\\textwidth", 
-    fig.keep = "high",
-    fig.show = "hold",
-    fig.align = "center",
-    fig.pos = "htb",
-    warning = FALSE,
-    error = FALSE,
-    prompt = TRUE,
-    comment = NA,
-    highlight = FALSE,
-    background = "#F7F7F7",
-    size = "small",
-    strip.white=FALSE,
-    cache = TRUE,
-    cache.path = "cache_EDA/")
-
-opts_knit$set(progress = TRUE,
-              verbose = TRUE,
-              unnamed.chunk.label = "CHUNK",
-              width = 70)
-options(show.signif.stars=FALSE)
-
 ## ----echo=FALSE----------------------------------------------------------
 rm(list=ls())
 
 ## ------------------------------------------------------------------------
 cor.test(~y1+x1, data=anscombe)
 
-## ----anscombe, echo=FALSE, out.width = "0.85\\textwidth", fig.height = 6, fig.width = 6, fig.cap='Anscombe data. The data in all four panels have the same correlation, p-value, slope, and intercept, but a correlation or linear regression is only appropriate for the top left graph.'----
+## ----echo=FALSE----------------------------------------------------------
 par(mfrow=c(2,2),
     mar=c(4,4,2,1),
     las=1)
@@ -195,7 +166,7 @@ group.prec <- factor(group.prec)
 prec.dat <- data.frame(prec, group.prec)
 prec.dat
 
-## ----prec, out.width = "0.55\\textwidth", fig.height = 4.5, fig.width = 4, fig.cap='A categorical variable is made based on the precision of the measurements for the outcome. Then, the values of the outcome are plotted by group so see if there are systematic differences.'----
+## ------------------------------------------------------------------------
 library(beeswarm)
 par(las=1)
 beeswarm(prec ~ group.prec, data=prec.dat, pch=16,
@@ -220,7 +191,7 @@ mean(c(0  , 10, 20))               # 0 indicates missing value
 mean(c(-1 , 10, 20))               # -1 indicates missing value
 mean(c(999, 10, 20))               # 999 indicates missing value
 
-## ----missing_LOD, echo=FALSE, out.width = "0.6\\textwidth", fig.height = 4.5, fig.width = 4.25, fig.cap='Missing values and the limit of detection (LOD). Values below the LOD were substituted with a value of LOD/2 = 0.5. The substitutions appear reasonable for the control group but not the disease group. Could there be another reason that values are missing?'----
+## ----echo=FALSE----------------------------------------------------------
 set.seed(2)
 gene.exp <- c(rnorm(20,4), rnorm(20,8))
 disease <- gl(2,20, labels=c("Control","Disease"))
@@ -249,7 +220,7 @@ apply(sleep, 1, function(x) sum(is.na(x)))
 # cross-tabulation of missing values
 xtabs(~is.na(NonD) + is.na(Dream), data=sleep)
 
-## ----missing_dat, out.width = "0.98\\textwidth", fig.height = 4, fig.width = 7, fig.cap='Missing data. The proportion of missing values for each variable (left) and the pattern of missing values (right). Grey squares indicate missing values and white squares indicate observed values.'----
+## ------------------------------------------------------------------------
 miss <- aggr(sleep, plot=FALSE)
 plot(miss, col=c("white", "darkgrey"), numbers = TRUE)
 
@@ -265,7 +236,7 @@ summary(combo.mod)
 ## ------------------------------------------------------------------------
 caret::findLinearCombos(cbind(Y,L,W,P))
 
-## ----mean_infor, echo=FALSE, out.width = "0.6\\textwidth", fig.height = 5, fig.width = 5, fig.cap='Averaging can remove information. Both distributions have the same mean and variance but one is bimodal.'----
+## ----echo=FALSE----------------------------------------------------------
 x.vals <- seq(0,15, length.out=300)
 
 par(mar=c(2,2,2,2))
@@ -286,7 +257,7 @@ x3 <- rnorm(100, 10)
 # x1 and x2 are uncorrelated
 cor.test(x1, x2)
 
-## ----sup_cor, out.width = "0.98\\textwidth", fig.height = 4, fig.width = 7, fig.cap='Spurious correlation. Two uncorrelated variables can become correlated when \"corrected\" for a common third variable.'----
+## ------------------------------------------------------------------------
 # when divided by x3, x1 and x2 are correlated
 cor.test(x1/x3, x2/x3)
 
@@ -296,7 +267,7 @@ plot(x2 ~ x1, main="Raw values")
 plot(I(x2/x3) ~ I(x1/x3), ylab="x2/x3", xlab="x1/x3",
      main="Common denominator")
 
-## ----preprocBlocks, echo=FALSE, out.width = "0.98\\textwidth", fig.height = 3.5, fig.width = 9.5, fig.cap='Correcting for block effects. The variances of the treatment groups become unequal when using only the control samples to remove differences between days (p = 0.007, middle graph). When all samples are used, the variances are similar (p = 0.531, right graph).'----
+## ----echo=FALSE----------------------------------------------------------
 
 library(lattice)
 
@@ -381,7 +352,7 @@ grid::grid.text("Day 1", x=0.28, y=0.77, gp=gpar(font=1, cex=0.8))
 grid::grid.text("Day 2", x=0.28, y=0.57, gp=gpar(font=1, cex=0.8))
 grid::grid.text("Day 3", x=0.28, y=0.27, gp=gpar(font=1, cex=0.8))
 
-## ----nonnorm, out.width = "0.6\\textwidth", fig.height = 5, fig.width = 5, fig.cap='Non-normal data generated from a normal distribution.'----
+## ------------------------------------------------------------------------
 # mean for each person
 x <- 1:100
 
@@ -398,7 +369,7 @@ par(las=1)
 hist(y.sim, col="grey", border="white", breaks=10,
     main="", xlab="y.sim")
 
-## ----nonnormresid, out.width = "0.6\\textwidth", fig.height = 5, fig.width = 5, fig.cap='Residuals are normally distributed even though the data are not.'----
+## ------------------------------------------------------------------------
 # fit a model and save the residuals
 resid <- resid(aov(y.sim ~ x))
 
@@ -414,7 +385,7 @@ u.dist <- runif(100)
 t.dist <- 10 * rt(100, df=3) + 100
 l.dist <- rlnorm(100, 4.5, 0.65)
 
-## ----1Dhist, out.width = "0.98\\textwidth", fig.height = 6, fig.width = 8, fig.cap='Graphs to assess the shape of a single variable.'----
+## ------------------------------------------------------------------------
 library(BHH2)
 par(mfrow=c(2,3),
     mar=c(5,4,3,1),
@@ -433,7 +404,7 @@ plot(density(n.dist), main="Density plot", xlab="", xlim=c(70, 125))
 
 qqnorm(n.dist, main="Q-Q plot"); qqline(n.dist)
 
-## ----qqplots, out.width = "0.7\\textwidth", fig.height = 8, fig.width = 5, fig.cap='Dot plots and Q-Q plots for three non-normal distributions.'----
+## ------------------------------------------------------------------------
 par(mfrow=c(3,2),
     mar=c(5,4,3,1),
     las=1)
@@ -455,7 +426,7 @@ data(chickwts)
 # reorder groups by mean weight
 chickwts$feed <- reorder(chickwts$feed, chickwts$weight, mean)
 
-## ----2vars, out.width = "0.99\\textwidth", fig.height = 9, fig.width = 11, fig.cap='Graphs of one continuous versus one categorical variable from the \\texttt{sciplot}, \\texttt{base}, \\texttt{beeswarm}, and \\texttt{beanplot} packages.'----
+## ------------------------------------------------------------------------
 library(sciplot); library(beanplot)
 par(mfrow=c(2,2),
     mar=c(4,3.8,3,0.5),
@@ -475,7 +446,7 @@ beanplot(weight ~ feed, data=chickwts, main=~Bean~plot~(beanplot),
          what=c(1,1,1,1), col=c("darkgrey","white","black","black"),
          ylab="Weight", border="black")
 
-## ----designplot, out.width = "0.98\\textwidth", fig.height = 5, fig.width = 11, fig.cap='A design plot is useful for ANOVA models.'----
+## ------------------------------------------------------------------------
 par(mfrow=c(1,2),
     mar=c(1,4,3,0.5),
     las=1)
@@ -495,7 +466,7 @@ all.cors <- cor(Soils[,c(6,13,14)])
 # reorder rows to make the same as the graph
 all.cors[3:1,]
 
-## ----splom, out.width = "0.9\\textwidth", fig.height = 8, fig.width = 8, fig.cap='Scatterplot matrix.'----
+## ------------------------------------------------------------------------
 library(lattice)
 splom(~Soils[,c(6,13,14)], cex=0.8, col="black",
       type=c("p","smooth"))
@@ -504,13 +475,13 @@ splom(~Soils[,c(6,13,14)], cex=0.8, col="black",
 ## trellis.focus()
 ## panel.brush.splom()
 
-## ----splom2, out.width = "0.9\\textwidth", fig.height = 8, fig.width = 8, fig.cap='Scatterplot matrix with information on sample depth encoded by symbol type (1 = shallow; 4 = deep).'----
+## ------------------------------------------------------------------------
 trellis.par.set(superpose.symbol=list(col="black", pch=c("1","2","3","4")))
 
 splom(~Soils[,c(6,13,14)], data=Soils, groups=Depth,
       auto.key=list(columns=4, title="Depth"), cex=1.2)
 
-## ----threeD, out.width = "0.68\\textwidth", fig.height = 6, fig.width = 6, fig.cap='3D scatterplot with information on sample depth encoded by symbol type (1 = shallow; 4 = deep).'----
+## ------------------------------------------------------------------------
 trellis.par.set(superpose.symbol=list(col="black", pch=c("1","2","3","4")))
 
 cloud(Conduc ~ Na + pH, data = Soils, col="black", group=Depth, cex=1.2,
@@ -524,7 +495,7 @@ cloud(Conduc ~ Na + pH, data = Soils, col="black", group=Depth, cex=1.2,
 ##     cloud(...)
 ##     )
 
-## ----xyplot1, out.width = "0.98\\textwidth", fig.height = 4, fig.width = 8, fig.cap='Scatterplot with three predictor variables. Sodium and conductance are conditioned on contour.'----
+## ------------------------------------------------------------------------
 trellis.par.set(superpose.symbol=list(col="black", pch=1:4))
 
 xyplot(Conduc~Na|Contour, data=Soils, group=Depth, type=c("g","p"),
@@ -535,7 +506,7 @@ xyplot(Conduc~Na|Contour, data=Soils, group=Depth, type=c("g","p"),
 # used to suppress message in the chunk below
 library(latticeExtra)
 
-## ----xyplot2, out.width = "0.98\\textwidth", fig.height = 7, fig.width = 7, fig.cap='Scatterplot with four predictor variables.'----
+## ------------------------------------------------------------------------
 library(latticeExtra)
 
 trellis.par.set(superpose.symbol=list(col="black", pch=1:4))
@@ -546,7 +517,7 @@ xyplot(Conduc~Na|reorder(Contour,Conduc,mean)+Depth, data=Soils,
        auto.key=list(columns=4, title="Block"))
     )
 
-## ----xyplot3, out.width = "0.98\\textwidth", fig.height = 5, fig.width = 7, fig.cap='Another scatterplot with three predictor variables but varying the grouping and conditioning variables. This graph allows block effects to be easily seen.'----
+## ------------------------------------------------------------------------
 trellis.par.set(superpose.symbol=list(col="black", pch=1:4),
                 superpose.line=list(col="black"))
 
@@ -557,14 +528,14 @@ xyplot(Conduc~Block|reorder(Contour,Conduc,mean), data=Soils,
 ## ------------------------------------------------------------------------
 summary(cellcount)
 
-## ----cell_count_hist, out.width = "0.85\\textwidth", fig.height = 4, fig.width = 6, fig.cap='Cell count across all plates.'----
+## ------------------------------------------------------------------------
 cell.num <- table(cellcount$cell.count) # seven wells with zero cells
 head(cell.num)
 
 par(las=1)
 plot(cell.num, xlab="Cell count", ylab="Frequency")
 
-## ----plate_dists, out.width = "0.98\\textwidth", fig.height = 4, fig.width = 8, fig.cap='Plate effects. Distributions are similar across all plates indicating the absence of large plate effects.'----
+## ------------------------------------------------------------------------
 par.set <- list(box.umbrella=list(col="black", lty=1), 
                 box.dot=list(col="black"), 
                 box.rectangle = list(col="black"),
@@ -593,7 +564,7 @@ row.means[,1:5]
 
 dim(col.means)
 
-## ----plates_profiles, out.width = "0.98\\textwidth", fig.height = 4, fig.width = 8, fig.cap='Spatial effects. Each line is one plate and row numbers 1--10 have lower cell counts. There also appears to be some zig-zagging across rows. The horizontal line is the overall mean cell count (across all plates).'----
+## ------------------------------------------------------------------------
 par(mfrow=c(1,2), las=1)
 matplot(t(row.means), type="l", col="black", ylim=c(200, 450),
         xlab="Row", ylab="Mean cell count", main="Row means")
@@ -603,7 +574,7 @@ matplot(t(col.means), type="l", col="black", ylim=c(200, 450),
         xlab="Column", ylab="Mean cell count", main="Column means")
 abline(h=mean(cellcount$cell.count))
 
-## ----plate_layout, out.width = "0.98\\textwidth", fig.height = 8, fig.width = 6, fig.cap='Spatial effects. A level plot shows that the top left part of some plates tend to have lower cell counts (darker shades).'----
+## ------------------------------------------------------------------------
 # nice colour scheme (not used for book)
 # levelcols <- colorRampPalette(c("darkblue", "blue", "lightgreen",
 #                                 "white", "orange", "red", "darkred"))
@@ -627,7 +598,7 @@ plate5$above.below <- ifelse(plate5$cent.count > 0, 1, -1)
 
 head(plate5)
 
-## ----plates_layout_check, out.width = "0.6\\textwidth", fig.height = 4*0.9, fig.width = 6*0.9, fig.cap='Spatial effects for wells above (white) or below (black) the median. The first few rows tend to be black, indicating a spatial effect.'----
+## ------------------------------------------------------------------------
 levelplot(above.below ~ column*row, data=plate5,
           main="", aspect=0.67, ylim=c(32,1), colorkey=FALSE,
           #panel = panel.2dsmoother, args = list(span=0.1), n=200
@@ -657,7 +628,7 @@ plate5$corrected.count <- plate5$resid + mean(plate5$cell.count)
 
 summary(plate5[,c(4,5,8,9)])
 
-## ----plates_wireframe, echo=FALSE, out.width = "0.98\\textwidth", fig.height = 4, fig.width = 10, fig.cap='Surface plots for spatial effects. The graphs show the raw cell count values for Plate 5, the smoothed values, and the corrected values.'----
+## ------------------------------------------------------------------------
 p1 <- wireframe(cell.count ~ column*row, data=plate5, colorkey=FALSE,
           scales=list(arrows=TRUE,distance=1.4), zlim=c(0,600),
           drape=TRUE, col.regions=greycols(100), zoom=0.65,
@@ -678,7 +649,7 @@ print(p1, split=c(1,1,3,1), more=TRUE)
 print(p2, split=c(2,1,3,1), more=TRUE)
 print(p3, split=c(3,1,3,1))
 
-## ----correct_cell_counts, echo=FALSE, out.width = "0.58\\textwidth", fig.height = 4.5, fig.width = 4.5, fig.cap='Raw versus corrected cell counts. The black triangle indicates a point with a raw cell count of zero, but a corrected count of 110.'----
+## ------------------------------------------------------------------------
 par(las=1)
 plot(corrected.count ~ cell.count, data=plate5,
      xlim=c(-60,620), ylim=c(-60,620), cex=0.8, col="grey40",
@@ -690,7 +661,7 @@ points(plate5$corrected.count[195] ~ plate5$cell.count[195],
 ## ------------------------------------------------------------------------
 summary(locomotor)
 
-## ----LMA_mean_sem, echo=FALSE, out.width = "0.8\\textwidth", fig.height = 5, fig.width = 6, fig.cap='Means and SEM. The data represent the total distance travelled by animals every 15 minutes. The two groups are similar at 15 min, and then the drug increases the distance travelled between 15 and 30 min, where it reaches its maximum effect and then remains stable until the last observation.'----
+## ------------------------------------------------------------------------
 par(las=1)
 lineplot.CI(time, dist, drug, data=locomotor, xlab="Time (min)",
              ylab="Locomotor activity", ylim=c(0,3.2),
@@ -699,7 +670,7 @@ lineplot.CI(time, dist, drug, data=locomotor, xlab="Time (min)",
 text("Drug", x=7, y=2, font=2)
 text("Control", x=7.1, y=0.6, font=2)
 
-## ----LMA_repeated_raw, out.width = "0.98\\textwidth", fig.height = 4, fig.width = 8, fig.cap='Profile plot of each animal. No rat in the drug group follows the pattern of change in Figure \\ref{fig:LMA_mean_sem}.'----
+## ------------------------------------------------------------------------
 xyplot(dist ~ factor(time)|drug, data=locomotor, group=animal, 
        type=c("g","l"), between=list(x=1), col="black",
        xlab="Time (min)", ylab="Locomotor activity",
@@ -724,7 +695,7 @@ km <- kmeans(drug.wide, centers=3, nstart=100)
 # show results
 km
 
-## ----LMA_repeated_clust, out.width = "0.98\\textwidth", fig.height = 4, fig.width = 8, fig.cap='Profile plot for each animal in the drug group. Some animals do not respond at all or have a small increase over time (cluster 3), some have a large early response but then drop back down to control levels (cluster 2), and some have a gradual increase that levels off (cluster 1).'----
+## ------------------------------------------------------------------------
 # make the assigned cluster into a factor
 drug.only$clust <- as.factor(paste("Drug Cluster",
                              rep(km$cluster, 6), sep=" "))

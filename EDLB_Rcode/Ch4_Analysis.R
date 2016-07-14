@@ -1,31 +1,3 @@
-## ----setup, include=FALSE, cache=FALSE-----------------------------------
-require(knitr)
-
-opts_chunk$set(
-    fig.path = "knitr_figs/",
-    fig.height = 3,
-    fig.width = 4,
-    out.width = "0.98\\textwidth", 
-    fig.keep = "high",
-    fig.show = "hold",
-    fig.align = "center",
-    fig.pos = "htb",
-    warning = FALSE,
-    error = FALSE,
-    prompt = TRUE,
-    comment = NA,
-    highlight = FALSE,
-    background = "#F7F7F7",
-    size = "small",
-    strip.white=FALSE,
-    cache = TRUE,
-    cache.path = "cache_analysis/")
-
-opts_knit$set(progress = TRUE,
-              verbose = TRUE,
-              unnamed.chunk.label = "CHUNK",
-              width = 70)
-options(show.signif.stars=FALSE)
 
 ## ----echo=FALSE----------------------------------------------------------
 rm(list=ls())
@@ -35,7 +7,7 @@ y <- c(6, 2, 3, 1, 4, 8, 7, 9)
 x <- factor(rep(c("A", "B"), each=4))
 data.frame(y, x)
 
-## ----SS, echo=FALSE, fig.height = 6, fig.width = 6, fig.cap='Partitioning the sum of squares (SS). A data set with two groups (A). The total sum of squares is equal to the squared lengths of the vertical lines in (B). The squared lengths can also be calculated from the group means, and this represents the variation remaining in the data after taking the experimental groups into account (C). Panel (D) shows how the total SS is partitioned into the part attributed to Group and to the residuals.'----
+## ----echo=FALSE----------------------------------------------------------
 
 mean.y <- mean(y)
 mean.A <- mean(y[1:4])
@@ -137,7 +109,7 @@ summary(simple.mod)
 ## ------------------------------------------------------------------------
 pf(6.86, df1=1, df=6,  lower.tail = FALSE)
 
-## ----random_bars, out.width = "0.8\\textwidth", fig.height = 5, fig.width = 7, fig.cap='A randomly generated outcome variable with equal means across the seven groups.'----
+## ------------------------------------------------------------------------
 set.seed(123)
 y.rand <- rnorm(7*5, 2) # 7 groups with 5 samples each
 g <- gl(7, 5, labels=LETTERS[1:7]) # grouping variable
@@ -155,7 +127,7 @@ summary(aov(y.rand ~ g))
 # t-test between two groups
 t.test(y.rand[g=="E"], y.rand[g=="G"], var.equal=TRUE)
 
-## ----typeIerr, echo=FALSE, out.width = "0.6\\textwidth", fig.height = 4.5, fig.width = 4.5, fig.cap='Probability of at least one false positive result when the per-comparison error rate is 0.05.'----
+## ----echo=FALSE----------------------------------------------------------
 par(las=1)
 plot(I(1-0.95^c(1:80)) ~ c(1:80), type="l", xlab="Number of tests",
      ylab="P(At least one false positive)")
@@ -181,7 +153,7 @@ summary.lm(simple.mod)
 ## ------------------------------------------------------------------------
 mean.B - mean.A
 
-## ----samemod, echo=FALSE, fig.height = 4, fig.width = 7, fig.cap='The graph on the left is a typical bar graph with the error bars representing one standard error of the mean (SEM). The graph on the right plots the raw data, the mean of each group (solid lines), and a regression line (dashed line). The factor levels A and B were recoded as 0 and 1, respectively. Note how the regression line passes through the mean of the two groups. The mean of Group A is the intercept and the difference between group means is the slope of the regression line.'----
+## ----echo=FALSE----------------------------------------------------------
 par(mfrow=c(1,2),
     mar=c(5,4.5,4,2),
     las=1)
@@ -206,7 +178,7 @@ head(fluoxetine)
 
 summary(fluoxetine)
 
-## ----fluox, echo=FALSE, out.width='0.55\\textwidth', fig.height = 4.5, fig.width = 4.5, fig.cap='One factor design. Horizontal lines are the group means and the thin line is the regression line.'----
+## ----echo=FALSE----------------------------------------------------------
 par(las=1,
     mar=c(4,4,1,1))
 plot(time.immob ~ dose, data=fluoxetine, ylim=c(0, 250),
@@ -242,7 +214,7 @@ suppressMessages(data(poisons, package="boot"))
 ## ------------------------------------------------------------------------
 summary(poisons)
 
-## ----poisons, fig.height = 4.5, fig.width = 8, fig.cap='A 2-way factorial design. The graph on the left uses survival time as the outcome. The graph on the right swaps the x-axis with the grouping factor and uses the death rate (reciprocal of survival time) as the outcome. Error bars are SEM.'----
+## ------------------------------------------------------------------------
 # reciprocal transformation
 poisons$rate <- 1/poisons$time
 
@@ -259,11 +231,11 @@ bargraph.CI(treat, rate, poison, data=poisons,
 mod.2way <- aov(rate~treat*poison, data=poisons)
 summary(mod.2way)
 
-## ----poisons_interact, out.width='0.7\\textwidth', fig.height = 6, fig.width = 6.5, fig.cap='Interaction plot. A zero interaction would have completely parallel lines.'----
+## ------------------------------------------------------------------------
 par(las=1)
 with(poisons, interaction.plot(poison, treat, rate, lwd=2))
 
-## ----poisons_tukey, fig.height = 4.5, fig.width = 8, fig.cap='Tukey\'s HSD. Mean differences and 95\\% CI for comparisons between treatments (left) and poisons (right).'----
+## ------------------------------------------------------------------------
 TukeyHSD(mod.2way, which="treat")
 
 TukeyHSD(mod.2way, which="poison")
@@ -335,7 +307,7 @@ xtabs(~ uniq.liver + uniq.rat, data=glycogen)
 # used to suppress message in the chunk below
 library(lattice)
 
-## ----glycogen, fig.height = 4.5, fig.width = 8, fig.cap='Example of subsampling. Glycogen levels are shown from two measurements taken on three pieces of liver from six rats.'----
+## ----glycogen------------------------------------------------------------
 library(lattice)
 trellis.par.set(superpose.symbol=list(col="black", pch=1:3))
 
@@ -357,7 +329,7 @@ glyc.red <- ddply(glycogen, .(Treatment, uniq.rat), summarize,
 
 glyc.red
 
-## ----glyc_red, out.width = "0.5\\textwidth", fig.height = 4.5, fig.width = 4.5, fig.cap='Summary measure analysis. Points represent the means of the subsamples.'----
+## ------------------------------------------------------------------------
 xyplot(Glycogen ~ Treatment, data=glyc.red,  type=c("g","p"),
        col="black")
 
@@ -389,7 +361,7 @@ cats$ratio <- cats$Hwt/cats$Bwt
 
 summary(cats)
 
-## ----ancova_mod,out.width = "0.95\\textwidth", fig.height = 7, fig.width = 7, fig.cap='Both heart weight and body weight differs between sexes (top graphs), but the ratio of heart/body weight is similar (bottom left). There is a strong correlation between heart and body weight (bottom right).'----
+## ------------------------------------------------------------------------
 par(mfrow=c(2,2),
     mar=c(4,4,2,1),
     las=1)
@@ -433,7 +405,7 @@ car::Anova(aov(Hwt ~  Sex + Bwt, data=cats))
 f2 <- subset(festing, batch==1)
 f2
 
-## ----festing1, echo=FALSE, out.width = "0.50\\textwidth", fig.height = 4.5, fig.width = 4.5, fig.cap='A randomised block design. The strains are blocks and randomisation to treatment groups occurs within strains.'----
+## ------------------------------------------------------------------------
 trellis.par.set(superpose.symbol=list(col="black", pch=1:4),
                 superpose.line=list(col="black"),
                 axis.components=list(right=list(tck=0),
@@ -450,7 +422,7 @@ summary(aov(value ~ strain * treatment, data=f2))
 ## ------------------------------------------------------------------------
 summary(aov(value ~ strain + treatment, data=f2))
 
-## ----festing2, echo=FALSE, out.width = "0.98\\textwidth", fig.height = 4.5, fig.width = 8, fig.cap='A randomised block design with strain and batch as blocks. There is genuine replication of treatments within strains.'----
+## ------------------------------------------------------------------------
 trellis.par.set(superpose.symbol=list(col="black", pch=1:4),
                 superpose.line=list(col="black"),
                 axis.components=list(right=list(tck=0),
@@ -479,7 +451,7 @@ VPA$drug <- relevel(VPA$drug, "SAL")
 
 xtabs(~litter+group, VPA)
 
-## ----vpa, echo=FALSE, out.width = "0.50\\textwidth", fig.height = 5, fig.width = 5, fig.cap='A mean and error bar plot. Error bars in a split-unit design do not convey any meaningful information.'----
+## ----echo=FALSE----------------------------------------------------------
 par(las=1, xpd=TRUE)
 bargraph.CI(group, activity/10000, drug, data=VPA,
             ylim=c(0,10), legend=TRUE, xlab="Group",
@@ -487,7 +459,7 @@ bargraph.CI(group, activity/10000, drug, data=VPA,
             y.leg=11, x.leg=5.5,
             main="Error bars are meaningless")
 
-## ----vpa2, echo=FALSE, out.width = "0.50\\textwidth", fig.height = 5, fig.width = 5, fig.cap='Raw data for a split-unit design. The variability in the data is due to both variation between litters and between mice within litters.'----
+## ----echo=FALSE----------------------------------------------------------
 trellis.par.set(superpose.symbol=list(col="black", pch=1:4),
                 superpose.line=list(col="black", lty=1:2),
                 axis.components=list(right=list(tck=0),
@@ -504,7 +476,7 @@ trellis.par.set(superpose.symbol=list(col="black", pch=1:4),
                 axis.components=list(right=list(tck=0),
                                      top=list(tck=0)))
 
-## ----vpa3, out.width = "0.98\\textwidth", fig.height = 4.5, fig.width = 9, fig.cap='A graph that partitions all sources of variability and makes it easy to understand the split-unit design of the experiment.'----
+## ------------------------------------------------------------------------
 xyplot(activity/10000 ~ drug|group:reorder(litter,activity,mean),
        data=VPA, type=c("g","p","a"), col="black", layout=c(6,1),
        xlab="Treatment", ylab="Locomotor activity (x10000)",
@@ -535,7 +507,7 @@ summary(KH2004)
 
 KH2004$rat <- factor(KH2004$rat)
 
-## ----rm2, echo=FALSE, out.width = "0.98\\textwidth", fig.height = 8, fig.width = 8, fig.cap='Repeated measures design. The force of muscle contraction over time is shown for two treatment conditions. The pinacidil condition has lower values compared with the control, except for Rat 6 where the relationship is reversed.'----
+## ----echo=FALSE----------------------------------------------------------
 trellis.par.set(superpose.symbol=list(col="black", pch=1:2),
                 superpose.line=list(col="black", lty=1:2),
                 axis.components=list(right=list(tck=0),
@@ -547,7 +519,7 @@ xyplot(values~time|rat, data=KH2004, groups=cond,
        scales=list(alternating=FALSE),
        auto.key=list(lines=TRUE))
 
-## ----rm3, echo=FALSE, out.width = "0.8\\textwidth", fig.height = 5, fig.width = 6, fig.cap='A RM-ANOVA assumes that the variances are constant between groups and across time points, which is not the case for this data.'----
+## ----echo=FALSE----------------------------------------------------------
 wide <- unstack(KH2004, values~rat)
 
 pinacidil <- t(wide[1:15, ])
@@ -566,13 +538,13 @@ points(var.pina ~ c(0:14) , type="b",
 legend("topright", legend=c("Placebo","Pinacidil"), #horiz = TRUE,
        lty=1:2, pch=1:2, bty="n")
 
-## ----rm4, echo=FALSE, out.width = "0.8\\textwidth", fig.height = 5, fig.width = 4, fig.cap='A plot to visualise the correlation matrix of all time points versus all other time points. The greater the narrowness of the ellipses, the greater the correlation between time points. Time points closer to each other have higher correlations than time points further apart.'----
+## ----echo=FALSE----------------------------------------------------------
 cors <- cor(placebo[,-1])
 colnames(cors) <- 1:14
 rownames(cors) <- 1:14
 corrplot::corrplot(cors, method="ellipse", type="upper")
 
-## ----hyp1, out.width = "0.8\\textwidth", fig.height = 5, fig.width = 7, fig.cap='Hypertension repeated measures design.'----
+## ------------------------------------------------------------------------
 summary(hypertension)
 
 # convert Subject and Time into factors
@@ -593,7 +565,7 @@ head(fits)
 
 slopes <- fits[,"Time"]
 
-## ----hyp2, out.width = "0.6\\textwidth", fig.height = 5, fig.width = 5, fig.cap='Summary measure analysis. The slope for each person is used as a new outcome variable.'----
+## ------------------------------------------------------------------------
 # make new treatment factor
 treatment <- gl(2, 5, labels=c("HighCa","LowCA"))
 
@@ -603,7 +575,7 @@ beeswarm(slopes ~ treatment, pch=16)
 ## ------------------------------------------------------------------------
 summary(aov(slopes ~ treatment))
 
-## ----hyp3, out.width = "0.6\\textwidth", fig.height = 5, fig.width = 5, fig.cap='Diagnostic plot from the mixed-effects model.'----
+## ------------------------------------------------------------------------
 lme.mod1 <- lme(Y ~ fac.time * Diet, random=~1|Subject, data=hypertension)
 anova(lme.mod1)
 
