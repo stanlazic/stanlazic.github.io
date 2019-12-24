@@ -241,6 +241,36 @@ points(x=4.95, y=-20, pch=17, cex=2)
 # how many samples to ensure 90% prob of 80% power?
 quantile(res, 0.9)
 
+
+## ------------------------------------------------------------------------
+sim.reg <- function(n, intercept, slope, sigma){
+    # values for x
+    x <- rep(c(0, 5, 10, 20), each=n)
+    
+    # use within group SD to calculate errors
+    e <- rnorm(length(x), 0, sigma)
+    
+    # generate data
+    y <- intercept + slope * x + e
+    
+    # calculate and return p-value
+    summary(aov(y ~ x))[[1]]["x", "Pr(>F)"]
+}
+
+
+## ------------------------------------------------------------------------
+# run one simulation
+set.seed(1)
+sim.reg(n=5, intercept=10, slope=0.25, sigma=3)
+
+# run 10000 simulations and save p-values
+set.seed(1)
+pvals <- replicate(10000, sim.reg(n=5, intercept=10, slope=0.25, sigma=3))
+
+# power (proportion of significant p-values)
+sum(pvals < 0.05) / 10000
+
+
 ## ------------------------------------------------------------------------
                                                       # Panel in graph
 x1 <- rep(c(0,8,16,24), each=5)                       # A
