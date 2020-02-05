@@ -1,0 +1,14 @@
+Many thanks to Florian Frommlet and Dorothy Bishop for catching these errors.
+
+Page 71: "...with only 20 genes there are already over 1 million ways in which two genes can interact (2^20 = 1,048,576), never mind the higher order interactions". The correct number for all pairwise interactions should be choose(20,2) = 190. The 1 million number include all possible interactions, not just genes taken two at a time. For a full human genome with approximately 20K genes the number of pairwise interactions between any two genes is choose(20000,2) = 199,990,000
+
+Page 106, third paragraph: "An important point is that statistical inference can only be made about this person (EU)." Should be "BU" instead of "EU".
+
+Page 142, second paragraph: "...using the data from Figure 4.2 (p. 129)" should be "...using data from Figure 4.1 (p. 125)".
+
+Page 217:  "The code below calculates the p-value for one simulated data 
+set with a slope of 10 and 5 observations ..." should read "...with a slope of 0.25..."
+
+Page 232: "The two variables have a Spearman correlation of r = 0.75 and a p-value of 3.7 x 10^{-10}." These are the results for a *Pearson* correlation. The results of a Spearman correlation are: r = 0.38, p = 0.007. The next sentence also shows the results of a Pearson (not Spearman) correlation with the three "outliers" removed (r = 0.32, p = 0.028).
+
+Page 266: "Flemming" should be "Fleming" in two places.
