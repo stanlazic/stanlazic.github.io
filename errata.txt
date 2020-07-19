@@ -6,6 +6,8 @@ Page 106, third paragraph: "An important point is that statistical inference can
 
 Page 142, second paragraph: "...using the data from Figure 4.2 (p. 129)" should be "...using data from Figure 4.1 (p. 125)".
 
+Page 150, first code block: should be data(poisons, package="boot"), not library(poisons, package="boot")
+
 Page 217:  "The code below calculates the p-value for one simulated data 
 set with a slope of 10 and 5 observations ..." should read "...with a slope of 0.25..."
 
