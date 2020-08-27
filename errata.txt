@@ -8,8 +8,7 @@ Page 142, second paragraph: "...using the data from Figure 4.2 (p. 129)" should 
 
 Page 150, first code block: should be data(poisons, package="boot"), not library(poisons, package="boot")
 
-Page 217:  "The code below calculates the p-value for one simulated data 
-set with a slope of 10 and 5 observations ..." should read "...with a slope of 0.25..."
+Page 217:  "The code below calculates the p-value for one simulated data set with a slope of 10 and 5 observations ..." should read "...with a slope of 0.25..."
 
 Page 232: "The two variables have a Spearman correlation of r = 0.75 and a p-value of 3.7 x 10^{-10}." These are the results for a *Pearson* correlation. The results of a Spearman correlation are: r = 0.38, p = 0.007. The next sentence also shows the results of a Pearson (not Spearman) correlation with the three "outliers" removed (r = 0.32, p = 0.028).
 
