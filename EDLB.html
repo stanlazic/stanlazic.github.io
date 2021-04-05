@@ -3,73 +3,91 @@
   <head>
     <meta name="author" content="Stanley E. Lazic">
     <meta name="description" content="Experimental design and statistics for biologists">
-    <title>Experimental design book</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- link to main stylesheet -->
+        <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+    <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="css/main.css">
+
+    <!-- Fontawesome + icons -->
+    <script defer src="https://use.fontawesome.com/releases/v5.7.0/js/all.js"></script>
     <link rel="icon"  href="img/favicon.ico">
+    
+    <title>Experimental design book</title>
   </head>
+  
   <body>
-    <nav>
-      <ul>
-	<li><a href="/">Home</a></li>
-	<li><a href="publications.html">Publications</a></li>
-	<li><a href="presentations.html">Presentations</a></li>
-	<li><a href="EDLB.html">Experimental Design Book</a></li>
-      </ul>
+      <nav class="navbar navbar-expand-lg navbar-light">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbarHeader">
+	<ul class="navbar-nav">
+	  <li class="nav-item"><a class="nav-link" style="padding-left: 0" href="/"><i class="header-icon fas fa-home"></i> Home</a></li>
+	  <li class="nav-item"><a class="nav-link" style="padding-left: 0" href="publications.html"><i class="header-icon fas fa-copy"></i> Publications</a></li>
+	  <li class="nav-item"><a class="nav-link" style="padding-left: 0" href="presentations.html"><i class="header-icon fas fa-chalkboard-teacher"></i> Presentations</a></li>
+	  <li class="nav-item"><a class="nav-link active" style="padding-left: 0" href="EDLB.html"><i class="header-icon fas fa-book"></i> Experimental Design Book</a></li>
+	</ul>
+      </div>
     </nav>
 
-    
-    <h1>Experimental Design for Laboratory Biologists</h1>
-    <h2>Maximising Information and Improving Reproducibility</h2>
-    
-    <p>Available from <a href="http://www.cambridge.org/us/academic/subjects/life-sciences/quantitative-biology-biostatistics-and-mathematical-modellin/experimental-design-laboratory-biologists-maximising-information-and-improving-reproducibility?format=PB" target="_blank">Cambridge University Press</a>, <a href="https://www.amazon.co.uk/gp/product/1107424887/ref=as_li_tl?ie=UTF8&camp=1634&creative=6738&creativeASIN=1107424887&linkCode=as2&tag=statisforexpe-21" target="_blank">Amazon.co.uk</a>, and <a href="https://www.amazon.com/gp/product/1107424887/ref=as_li_tl?ie=UTF8&tag=statisforexpe-20&camp=1789&creative=9325&linkCode=as2&creativeASIN=1107424887&linkId=1a1f59e28e6a5b20c8c5583b9e61edf2" target="_blank">Amazon.com</a>.</p>
-
-
-
-    <table style="width:80%">
-      <tr><td>
-
-	  <h3>R code by chapter</h3>
-
-	  <ul>
-	    <li><a href="EDLB_Rcode/Ch4_Analysis.txt">Chapter 4: Analysis of Common Designs</a></li>
-	    <li><a href="EDLB_Rcode/Ch5_Planning.txt">Chapter 5: Planning for Success</a></li>
-	    <li><a href="EDLB_Rcode/Ch6_EDA.txt">Chapter 6: Exploratory Data Analysis</a></li>
-	    <li><a href="EDLB_Rcode/R_appendix.txt">R Appendix</a></li>
-	  </ul>
-
-
-	  <h3>Data sets</h3>
-	  
-	  <ul>
-	    <li><a href="EDLB_Rcode/datasets.zip">Plain text</a> (tab delimited zipped)</li>
-	    <li><a href="https://cran.r-project.org/web/packages/labstats/index.html" target="_blank">labstats R package</a> (on CRAN)</li>
-	  </ul>
-
-	  <h3>Errata</h3>
-	  <ul>
-	    <li><a href="errata.txt">List of corrections</a></li>
-	  </ul>	 
-	  
-
-	</td>
-
-	<td> 
-	  <a href="http://www.cambridge.org/us/academic/subjects/life-sciences/quantitative-biology-biostatistics-and-mathematical-modellin/experimental-design-laboratory-biologists-maximising-information-and-improving-reproducibility?format=PB" target="_blank"><img src="EDLB_Rcode/EDLB_image.png" alt="Cover image" style="width:250px;height:204.5px;"> </a>
-	</td>
-        
-      </tr>
-    </table>
-
+      <div class="row">
+	<div class="col-9">
+	  <h1>Experimental Design for Laboratory Biologists: Maximising Information and Improving Reproducibility</h1>
+	</div>
+      </div>
 
     
+      <p>Order from:</p>
 
-    <h3>About</h3>
+      <a type="button" class="btn btn-secondary buy-button" href="https://www.amazon.com/gp/product/1107424887/ref=as_li_tl?ie=UTF8&tag=statisforexpe-20&camp=1789&creative=9325&linkCode=as2&creativeASIN=1107424887&linkId=1a1f59e28e6a5b20c8c5583b9e61edf2" target="_blank"><i class="fab fa-amazon"></i> Amazon.com</a>
+      
+      <a type="button" class="btn btn-secondary buy-button" href="https://www.amazon.co.uk/gp/product/1107424887/ref=as_li_tl?ie=UTF8&camp=1634&creative=6738&creativeASIN=1107424887&linkCode=as2&tag=statisforexpe-21" target="_blank"><i class="fab fa-amazon"></i> Amazon.co.uk</a>
+
+      <a type="button" class="btn btn-secondary buy-button" href="https://www.cambridge.org/us/academic/subjects/life-sciences/quantitative-biology-biostatistics-and-mathematical-modellin/experimental-design-laboratory-biologists-maximising-information-and-improving-reproducibility?format=PB" target="_blank"><i class="fas fa-university"></i> Cambridge University Press</a>
+      
+
+    <div class="row">
+      <div class="col-md-6">
+	<h2>R code by chapter</h2>
+
+	<ul>
+	  <li><a href="EDLB_Rcode/Ch4_Analysis.txt">Chapter 4: Analysis of Common Designs</a></li>
+	  <li><a href="EDLB_Rcode/Ch5_Planning.txt">Chapter 5: Planning for Success</a></li>
+	  <li><a href="EDLB_Rcode/Ch6_EDA.txt">Chapter 6: Exploratory Data Analysis</a></li>
+	  <li><a href="EDLB_Rcode/R_appendix.txt">R Appendix</a></li>
+	</ul>
+
+
+	<h2>Data sets</h2>
+	
+	<ul>
+	  <li><a href="EDLB_Rcode/datasets.zip">Plain text</a> (tab delimited zipped)</li>
+	  <li><a href="https://cran.r-project.org/web/packages/labstats/index.html" target="_blank">labstats R package</a> (on CRAN)</li>
+	</ul>
+
+	<h2>Errata</h2>
+	<ul>
+	  <li><a href="errata.txt">List of corrections</a></li>
+	</ul>	 
+      </div>
+
+      <div class="col-md-6">
+	<a href="http://www.cambridge.org/us/academic/subjects/life-sciences/quantitative-biology-biostatistics-and-mathematical-modellin/experimental-design-laboratory-biologists-maximising-information-and-improving-reproducibility?format=PB" target="_blank"><img class="book-picture" src="EDLB_Rcode/EDLB_image.png" alt="Cover image"> </a>
+
+      </div>
+    </div>
+
+    
+    <h2>About</h2>
 
     <p>This practical guide shows biologists how to design reproducible experiments that have low bias, high precision, and results that are widely applicable. With specific examples using both cell cultures and model organisms, it shows how to plan a successful experiment. It demonstrates how to control biological and technical factors that can introduce bias or add noise, and covers rarely discussed topics such as graphical data exploration, choosing outcome variables, data quality control checks, and data pre-processing. It also shows how to use R for analysis, and is designed for those with no prior experience. This is an ideal guide for anyone conducting lab-based biological research.</p><br/>
 
-    <h3>Brief table of contents</h3>
+    <h2>Brief table of contents</h2>
     <ol>
       <li>Introduction</li>
       <li>Key ideas in experimental design</li>
@@ -81,7 +99,7 @@
       <li>Appendix B. Glossary</li>
     </ol><br/>
     
-    <h3>Recommendations</h3>
+    <h2>Recommendations</h2>
 
     <p><i>This is a wonderfully lucid introduction to experimental design, written by an author who is clearly aware of the pitfalls that exist for the unwary experimenter. Highly recommended.</i><br />
       &ndash; Prof. Dorothy Bishop, University of Oxford</p>
@@ -92,7 +110,7 @@
     <p><i>This important textbook is a timely and highly useful contribution in the pressing quest to improve the robustness, rigor, and reproducibility of current biological and preclinical research. This volume is unique... [as] it is immensely readable and accessible even for those with little previous knowledge, in combining all relevant aspects in a practical, concise and comprehensive manner, and in its clear focus on factors that help to improve the quality of research.</i><br />
       &ndash; Prof. Ulrich Dirnagl, Charite University Hospital, Germany</p><br/>
 
-    <h3>And from Twitter...</h3>
+    <h2>And from Twitter...</h2>
     
     <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Must read for all cell biologists <a href="https://t.co/GA6tyBvCFe">https://t.co/GA6tyBvCFe</a><br>Stanley Lazic&#39;s book on experimental design is also highly recommended.</p>&mdash; Steve Royle (@clathrin) <a href="https://twitter.com/clathrin/status/982143485779128321?ref_src=twsrc%5Etfw">April 6, 2018</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
@@ -116,5 +134,7 @@
 	<li><a href="https://github.com/stanlazic">github.com/stanlazic</a></li>
       </ul>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    
   </body>
 </html>
