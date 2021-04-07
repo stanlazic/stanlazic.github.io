@@ -58,6 +58,7 @@ a:hover {
 .photo {
     float: left;
     margin-right: 20px;
+    margin-bottom: 5px;
 }
 
 .book-picture {
